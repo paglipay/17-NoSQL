@@ -1,5 +1,5 @@
 let mongoose = require("mongoose");
-let db = require("../models/workout.js");
+let db = require("../models");
 
 mongoose.connect("mongodb://user1:Passw0rd@ds147436.mlab.com:47436/heroku_9m7xxgm9", {
   useNewUrlParser: true,
@@ -135,25 +135,16 @@ const workoutSeed = [
   }
 ];
 
-// db.Workout.deleteMany({})
-//   .then(() => db.Workout.collection.insertMany(workoutSeed))
-//   .then(data => {
-//     console.log(data.result.n + " records inserted!");
-//     process.exit(0);
-//   })
-//   .catch(err => {
-//     console.error(err);
-//     process.exit(1);
-//   });
-  db.deleteMany({})
-    .then(() => db.collection.insertMany(workoutSeed))
-    .then(data => {
-      console.log(data.result.n + " records inserted!");
-      process.exit(0);
-    })
-    .catch(err => {
-      console.error(err);
-      process.exit(1);
-    });
+db.Workout.deleteMany({})
+  .then(() => db.Workout.collection.insertMany(workoutSeed))
+  .then(data => {
+    console.log(data.result.n + " records inserted!");
+    process.exit(0);
+  })
+  .catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
+
 
   

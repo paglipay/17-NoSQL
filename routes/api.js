@@ -1,12 +1,12 @@
 const router = require("express").Router();
-const Workouts = require("../models/workout.js");
+const db = require("../models");
 // Dependencies
 // =============================================================
 var path = require("path");
 
 // const mongojs = require("mongojs");
 router.get("/api/workouts", (req, res) => {
-  Workouts.find()
+  db.Workout.find()
     .sort({ date: -1 })
     .then(data => {
       res.json(data);
@@ -18,7 +18,7 @@ router.get("/api/workouts", (req, res) => {
 
 router.get("/", (req, res) => {
 
-  Workouts.find()
+  db.Workout.find()
     .sort({ date: -1 })
     .then(data => {
       res.json(data);
@@ -30,7 +30,7 @@ router.get("/", (req, res) => {
 
 router.put("/api/workouts/:id", (req, res) => {
   console.log('workouts put' + JSON.stringify(req.body));
-  Workouts.update({ _id: req.params.id }, { $push: { exercises: req.body } })
+  db.Workout.update({ _id: req.params.id }, { $push: { exercises: req.body } })
     .then(data => {
       res.json(data);
     })
@@ -41,7 +41,7 @@ router.put("/api/workouts/:id", (req, res) => {
 
 router.post("/api/workouts/", (req, res) => {
   console.log(req.body)
-  Workouts.create({ day: "07/29/2020", exercises: req.body })
+  db.Workout.create({ day: "07/29/2020", exercises: req.body })
     .then(data => {
       res.json(data);
     })
@@ -61,7 +61,7 @@ router.get("/stats", (req, res) => {
 });
 
 router.get("/api/workouts/range", (req, res) => {
-  Workouts.find()
+  db.Workout.find()
     .sort({ day: -1 })
     .then(data => {
       res.json(data);
